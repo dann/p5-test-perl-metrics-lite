@@ -19,7 +19,10 @@ use inc::Module::Install;
 name 'Test-Perl-Metrics-Lite';
 all_from 'lib/Test/Perl/Metrics/Lite.pm';
 
-requires( 'Perl::Metrics::Lite' => 0.03, );
+requires(
+    'Perl::Metrics::Lite' => 0.03,
+    'List::MoreUtils'     => 0,
+);
 test_requires( 'Test::More' => 0.88, );
 use_test_base;
 auto_include;
