@@ -124,28 +124,32 @@ __END__
 
 =head1 NAME
 
-Test::Perl::Metrics::Lite -
+Test::Perl::Metrics::Lite - Use Perl::Metrics::Lite in test programs
 
 =head1 SYNOPSIS
+
+Basic usage:
 
   use Test::Perl::Metrics::Lite;
   all_metrics_ok();
 
+You can change the metrics threshold.
+
+  use Test::Perl::Metrics::Lite -mccabe_complexity => 6 -loc => 50;
+  all_metrics_ok();
+
 =head1 DESCRIPTION
 
-Test::Perl::Metrics::Lite is
+Test::Perl::Metrics::Lite wraps the Perl::Metrics::Lite 
+engine in a  convenient subroutine suitable for test programs 
+written using the Test::More framework
 
+This makes it easy to integrate metrics enforcement into the build process. =head1 SOURCE AVAILABILITY
 
-=head1 SOURCE AVAILABILITY
 
 This source is in Github:
 
-  http://github.com/dann/
-
-=head1 CONTRIBUTORS
-
-Many thanks to:
-
+  http://github.com/dann/p5-test-perl-metrics-lite
 
 =head1 AUTHOR
 

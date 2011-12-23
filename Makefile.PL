@@ -16,24 +16,11 @@ sub auto_set_repository { }
 
 use inc::Module::Install;
 
-{
-    no warnings 'redefine';
-    *recommends_hack
-        = $Module::Install::VERSION > 0.70
-        ? sub { recommends(@_); $_[0] }
-        : \&recommends;
-}
-
 name 'Test-Perl-Metrics-Lite';
 all_from 'lib/Test/Perl/Metrics/Lite.pm';
 
-requires(
-
-);
-test_requires(
-    'Test::More'                   => 0.88,
-    'Test::LoadAllModules'         => 0.02,
-);
+requires( 'Perl::Metrics::Lite' => 0.03, );
+test_requires( 'Test::More' => 0.88, );
 use_test_base;
 auto_include;
 WriteAll;
