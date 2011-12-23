@@ -107,7 +107,7 @@ sub _sub_cc_ok {
         return 0;
     }
     else {
-        $TEST->ok( 0, $sub_metric->{name} . " is too complex" );
+        $TEST->ok( 0, $sub_metric->{name} . " is too complex: cc is ${cc}" );
         return 1;
     }
 }
@@ -121,7 +121,7 @@ sub _sub_loc_ok {
         return 0;
     }
     else {
-        $TEST->ok( 0, $sub_metric->{name} . " loc is too long!: ${sloc}" );
+        $TEST->ok( 0, $sub_metric->{name} . " loc is too long!: sloc is ${sloc}" );
         return 1;
     }
 }
