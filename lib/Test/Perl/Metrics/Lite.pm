@@ -94,7 +94,7 @@ sub _sub_cc_ok {
     my $sub_metric = shift;
 
     my $cc = $sub_metric->{mccabe_complexity};
-    if ( $cc < $METRICS_ARGS{mccabe_complexity} ) {
+    if ( $cc < $METRICS_ARGS{-mccabe_complexity} ) {
         $TEST->ok( 1, $sub_metric->{name} . " cc is ok" );
         return 0;
     }
@@ -108,7 +108,7 @@ sub _sub_loc_ok {
     my $sub_metric = shift;
 
     my $sloc = $sub_metric->{lines};
-    if ( $sloc < $METRICS_ARGS{loc} ) {
+    if ( $sloc < $METRICS_ARGS{-loc} ) {
         $TEST->ok( 1, $sub_metric->{name} . " sloc is ok" );
         return 0;
     }
@@ -136,7 +136,7 @@ Basic usage:
 
 You can change the metrics threshold.
 
-  use Test::Perl::Metrics::Lite -mccabe_complexity => 6 -loc => 50;
+  use Test::Perl::Metrics::Lite (-mccabe_complexity => 6, -loc => 30);
   all_metrics_ok();
 
 =head1 DESCRIPTION
