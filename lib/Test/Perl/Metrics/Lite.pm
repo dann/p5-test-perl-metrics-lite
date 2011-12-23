@@ -2,8 +2,9 @@ package Test::Perl::Metrics::Lite;
 use strict;
 our $VERSION = '0.01';
 
-use Test::More ();
 use Perl::Metrics::Lite;
+use Test::More ();
+use Test::Builder;
 
 my %METRICS_ARGS;
 
@@ -20,9 +21,9 @@ sub import {
 
     $TEST->exported_to($caller);
 
-    $args{'-mccabe_complexity'} = 10 unless $args{'-mccabe_complexity'};
-    $args{'-loc'}               = 60 unless $args{'-loc'};
     %METRICS_ARGS               = %args;
+    $METRICS_ARGS{-mccabe_complexity} ||= 10;
+    $METRICS_ARGS{-loc} ||= 60;
 
     return 1;
 }
@@ -63,10 +64,10 @@ sub _analyze_metrics {
 
 sub _all_files_metric_ok {
     my $sub_stats = shift;
-    my $ok        = 1;
+    my $ok        = 0;
     foreach my $file_path ( keys %{$sub_stats} ) {
         my $sub_metrics = $sub_stats->{$file_path};
-        $ok &= _all_sub_metrics_ok($sub_metrics);
+        $ok = $ok or _all_sub_metrics_ok($sub_metrics);
     }
     return $ok;
 }
@@ -74,18 +75,18 @@ sub _all_files_metric_ok {
 sub _all_sub_metrics_ok {
     my $sub_metrics = shift;
     my @rows = ();
-    my $ok   = 1;
+    my $ok   = 0;
     foreach my $sub_metric ( @{$sub_metrics} ) {
-        $ok &= _sub_metric_ok($sub_metric);
+        $ok = $ok or _sub_metric_ok($sub_metric);
     }
     return $ok;
 }
 
 sub _sub_metric_ok {
     my $sub_metric = shift;
-    my $ok         = 1;
-    $ok &= _sub_loc_ok($sub_metric);
-    $ok &= _sub_cc_ok($sub_metric);
+    my $ok         = 0;
+    $ok = $ok or _sub_loc_ok($sub_metric);
+    $ok = $ok or _sub_cc_ok($sub_metric);
     return $ok;
 }
 
@@ -93,13 +94,13 @@ sub _sub_cc_ok {
     my $sub_metric = shift;
 
     my $cc = $sub_metric->{mccabe_complexity};
-    if ( $cc > $METRICS_ARGS{mccabe_complexity} ) {
+    if ( $cc < $METRICS_ARGS{mccabe_complexity} ) {
         $TEST->ok( 1, $sub_metric->{name} . " cc is ok" );
-        return 1;
+        return 0;
     }
     else {
         $TEST->ok( 0, $sub_metric->{name} . " is too complex" );
-        return 0;
+        return 1;
     }
 }
 
@@ -107,13 +108,13 @@ sub _sub_loc_ok {
     my $sub_metric = shift;
 
     my $sloc = $sub_metric->{lines};
-    if ( $sloc > $METRICS_ARGS{loc} ) {
+    if ( $sloc < $METRICS_ARGS{loc} ) {
         $TEST->ok( 1, $sub_metric->{name} . " sloc is ok" );
-        return 1;
+        return 0;
     }
     else {
         $TEST->ok( 0, $sub_metric->{name} . " loc is too long!: ${sloc}" );
-        return 0;
+        return 1;
     }
 }
 
