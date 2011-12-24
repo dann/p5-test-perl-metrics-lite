@@ -2,10 +2,10 @@ package Test::Perl::Metrics::Lite;
 use strict;
 our $VERSION = '0.02';
 
+use List::MoreUtils qw(any);
 use Perl::Metrics::Lite;
 use Test::More ();
 use Test::Builder;
-use List::MoreUtils qw(any);
 
 my %METRICS_ARGS;
 
