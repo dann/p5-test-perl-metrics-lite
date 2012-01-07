@@ -1,5 +1,9 @@
 Revision history for Perl extension Test::Perl::Metrics::Lite
 
+0.2 Fri Jan 7 20:05:00 2011
+	* Added tests for except_file options
+	* Fixed lib dir parameter argument
+
 0.1 Fri Jan 7 20:05:00 2011
 	* Write POD for test options.
 
