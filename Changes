@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::Perl::Metrics::Lite
 
+0.1 Fri Jan 7 20:05:00 2011
+	* Write POD for test options.
+
 0.03 Fri Jan 7 18:11:00 2011
 	* Add "except_file" option 
 	* Change "except" option name to "except_dir" 

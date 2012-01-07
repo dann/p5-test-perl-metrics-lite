@@ -1,6 +1,6 @@
 package Test::Perl::Metrics::Lite;
 use strict;
-our $VERSION = '0.03';
+our $VERSION = '0.1';
 
 use List::MoreUtils qw(any);
 use Perl::Metrics::Lite;
@@ -145,23 +145,40 @@ Test::Perl::Metrics::Lite - Use Perl::Metrics::Lite in test programs
 
 =head1 SYNOPSIS
 
-Basic usage:
+Basic usage.
 
   use Test::Perl::Metrics::Lite;
   all_metrics_ok();
 
 You can change the metrics threshold.
 
-  use Test::Perl::Metrics::Lite (-mccabe_complexity => 6, -loc => 30);
+  use Test::Perl::Metrics::Lite (-mccabe_complexity => 20, -loc => 100);
   all_metrics_ok();
+
+Exclude some files with except_file option
+
+  use Test::Perl::Metrics::Lite (
+      -except_file => [
+          'lib/SomeClass.pm',
+          'lib/SomeDir/SomeClass.pm'
+       ]
+  );
+  all_metrics_ok();
+
 
 =head1 DESCRIPTION
 
 Test::Perl::Metrics::Lite wraps the Perl::Metrics::Lite 
-engine in a  convenient subroutine suitable for test programs 
+engine in a convenient subroutine suitable for test programs 
 written using the Test::More framework
 
-This makes it easy to integrate metrics enforcement into the build process. =head1 SOURCE AVAILABILITY
+This makes it easy to integrate metrics enforcement into the build process. 
+
+Mccabe complexity theshold is 10 and the lines of code theshold is 60.
+all_metrics_ok() test is failed when metrics exceed threshold values 
+relative to the baseline.
+
+=head1 SOURCE AVAILABILITY
 
 
 This source is in Github:
