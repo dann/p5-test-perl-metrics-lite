@@ -1,6 +1,6 @@
 package Test::Perl::Metrics::Lite;
 use strict;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use List::MoreUtils qw(any);
 use Perl::Metrics::Lite;
