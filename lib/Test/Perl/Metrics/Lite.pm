@@ -1,6 +1,6 @@
 package Test::Perl::Metrics::Lite;
 use strict;
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 use List::MoreUtils qw(any);
 use Perl::Metrics::Lite;
@@ -49,10 +49,10 @@ sub _starting_points {
 }
 
 sub all_metrics_ok {
-    my %param = @_;
+    my @dirs = @_;
+
     Test::More::plan('no_plan');
 
-    my @dirs = @_;
     if ( not @dirs ) {
         @dirs = _starting_points();
     }
