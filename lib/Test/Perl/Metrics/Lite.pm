@@ -30,7 +30,7 @@ sub import {
 }
 
 sub all_code_files {
-    my @exceptions = @{ $METRICS_ARGS{-except} || [] };
+    my @exceptions = @{ $METRICS_ARGS{-except_dir} || [] };
     my @dirs = @_;
     if ( not @dirs ) {
         @dirs = _starting_points();
@@ -74,6 +74,9 @@ sub _all_files_metric_ok {
     my $sub_stats = shift;
     my $ok        = 0;
     foreach my $file_path ( keys %{$sub_stats} ) {
+        my @except_files = @{ $METRICS_ARGS{-except_file} || [] };
+        next if is_excluded( $file_path, @except_files );
+
         my $sub_metrics = $sub_stats->{$file_path};
         $ok = $ok or _all_sub_metrics_ok($sub_metrics);
     }
@@ -92,7 +95,8 @@ sub _all_sub_metrics_ok {
 
 sub _sub_metric_ok {
     my $sub_metric = shift;
-    my $ok         = 0;
+
+    my $ok = 0;
     $ok = $ok or _sub_loc_ok($sub_metric);
     $ok = $ok or _sub_cc_ok($sub_metric);
     return $ok;
