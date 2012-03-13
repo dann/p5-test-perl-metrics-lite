@@ -22,7 +22,7 @@ my $build = Module::Build->new(
         'List::MoreUtils'     => '0',
     },
     no_index    => { 'directory' => [ 'inc', 't', 'xt' ] },
-    test_files => ( -d '.git' || $ENV{RELEASE_TESTING} ) ? 't/ xt/' : 't/',
+    test_files => $ENV{RELEASE_TESTING} ? 't/ xt/' : 't/',
     create_readme  => 1,
     create_license => 1,
     meta_merge     => {
