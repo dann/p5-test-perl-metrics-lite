@@ -1,27 +1,49 @@
-This is Perl module Test::Perl::Metrics::Lite.
+NAME
+    Test::Perl::Metrics::Lite - Use Perl::Metrics::Lite in test programs
 
-INSTALLATION
+SYNOPSIS
+    Basic usage.
 
-Test::Perl::Metrics::Lite installation is straightforward. If your CPAN shell is set up,
-you should just be able to do
+      use Test::Perl::Metrics::Lite;
+      all_metrics_ok();
 
-    % cpan Test::Perl::Metrics::Lite
+    You can change the metrics threshold.
 
-Download it, unpack it, then build it as per the usual:
+      use Test::Perl::Metrics::Lite (-mccabe_complexity => 20, -loc => 100);
+      all_metrics_ok();
 
-    % perl Makefile.PL
-    % make && make test
+    Exclude some files with except_file option
 
-Then install it:
+      use Test::Perl::Metrics::Lite (
+          -except_file => [
+              'lib/SomeClass.pm',
+              'lib/SomeDir/SomeClass.pm'
+           ]
+      );
+      all_metrics_ok();
 
-    % make install
+DESCRIPTION
+    Test::Perl::Metrics::Lite wraps the Perl::Metrics::Lite engine in a
+    convenient subroutine suitable for test programs written using the
+    Test::More framework
 
-DOCUMENTATION
+    This makes it easy to integrate metrics enforcement into the build
+    process.
 
-Test::Perl::Metrics::Lite documentation is available as in POD. So you can do:
+    Mccabe complexity theshold is 10 and the lines of code theshold is 60.
+    all_metrics_ok() test is failed when metrics exceed threshold values
+    relative to the baseline.
 
-    % perldoc Test::Perl::Metrics::Lite
+SOURCE AVAILABILITY
+    This source is in Github:
 
-to read the documentation online with your favorite pager.
+      http://github.com/dann/p5-test-perl-metrics-lite
 
-Dann
+AUTHOR
+    Dann <techmemo@gmail.com>
+
+SEE ALSO
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
