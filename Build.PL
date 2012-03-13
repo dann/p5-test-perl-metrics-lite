@@ -22,7 +22,7 @@ my $build = Module::Build->new(
     create_readme  => 1,
     create_license => 1,
     meta_merge     => {
-        resources => { 'repository' => 'http://github.com/bayashi/Baya', }
+        resources => { 'repository' => 'http://github.com/dann/p5-test-perl-metrics-lite', }
     },
 );
 $build->create_build_script();
