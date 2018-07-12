@@ -112,7 +112,7 @@ sub _sub_cc_ok {
     }
     else {
         $TEST->ok( 0,
-            "The method is to complex! Detail: Path: $sub_metric->{path}, Method: $sub_metric->{name}, CC: ${cc}"
+            "The method is too complex! Detail: Path: $sub_metric->{path}, Method: $sub_metric->{name}, CC: ${cc}"
         );
         return 1;
     }
