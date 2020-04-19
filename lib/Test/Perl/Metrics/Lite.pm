@@ -26,6 +26,10 @@ sub import {
     $METRICS_ARGS{-mccabe_complexity} ||= 10;
     $METRICS_ARGS{-loc}               ||= 60;
 
+    Test::More::note(
+        sprintf("The metrics reshold CC: %d, LOC: %d", $METRICS_ARGS{-mccabe_complexity}, $METRICS_ARGS{-loc})
+    );
+
     return 1;
 }
 
@@ -107,7 +111,7 @@ sub _sub_cc_ok {
 
     my $cc = $sub_metric->{mccabe_complexity};
     if ( $cc < $METRICS_ARGS{-mccabe_complexity} ) {
-        $TEST->ok( 1, $sub_metric->{name} . " cc is ok" );
+        $TEST->ok( 1, $sub_metric->{name} . " cc:${cc} is ok" );
         return 0;
     }
     else {
@@ -123,7 +127,7 @@ sub _sub_loc_ok {
 
     my $sloc = $sub_metric->{lines};
     if ( $sloc < $METRICS_ARGS{-loc} ) {
-        $TEST->ok( 1, $sub_metric->{name} . " sloc is ok" );
+        $TEST->ok( 1, $sub_metric->{name} . " sloc:${sloc} is ok" );
         return 0;
     }
     else {
